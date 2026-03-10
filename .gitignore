@@ -1,3 +1,8 @@
 # Default ignored files
 /shelf/
 /.idea/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
