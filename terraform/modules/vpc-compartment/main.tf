@@ -83,7 +83,7 @@ resource "aws_route_table_association" "public" {
 # -----------------------------------------------------------------------------
 resource "aws_eip" "nat" {
   for_each = var.enable_nat_gateway && local.has_public ? (
-    var.single_nat_gateway ? { "single" = true } : { for s in local.public_subnets : s.name => s }
+    var.single_nat_gateway ? { "single" = local.public_subnets[0] } : { for s in local.public_subnets : s.name => s }
   ) : {}
 
   domain = "vpc"
@@ -144,10 +144,10 @@ resource "aws_route_table_association" "private" {
 # Security groups (optional but recommended)
 # -----------------------------------------------------------------------------
 resource "aws_security_group" "by_type" {
-  for_each = var.enable_security_groups ? { for s in var.subnets : s.type => s if s.type != "public" } : {}
+  for_each = var.enable_security_groups ? { for t in distinct([for s in var.subnets : s.type if s.type != "public"]) : t => t } : {}
 
-  name        = "${local.compartment_prefix}-sg-${each.value.type}"
-  description = "Security group for ${each.value.type} subnet in ${var.compartment_name}"
+  name        = "${local.compartment_prefix}-sg-${each.key}"
+  description = "Security group for ${each.key} subnet in ${var.compartment_name}"
   vpc_id      = aws_vpc.this.id
 
   # Allow all outbound
@@ -159,8 +159,8 @@ resource "aws_security_group" "by_type" {
   }
 
   tags = merge(var.tags, {
-    Name        = "${local.compartment_prefix}-sg-${each.value.type}"
-    Type        = each.value.type
+    Name        = "${local.compartment_prefix}-sg-${each.key}"
+    Type        = each.key
     Compartment = var.compartment_name
   })
 }

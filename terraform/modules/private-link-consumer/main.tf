@@ -3,7 +3,7 @@ resource "aws_vpc_endpoint" "this" {
   service_name        = var.service_name
   vpc_endpoint_type   = "Interface"
   subnet_ids          = var.subnet_ids
-  security_group_ids  = length(var.security_group_ids) > 0 ? var.security_group_ids : [aws_security_group.vpce[0].id]
+  security_group_ids  = var.create_default_security_group ? [aws_security_group.vpce[0].id] : var.security_group_ids
   private_dns_enabled = var.private_dns_enabled
 
   tags = merge(var.tags, {
@@ -13,7 +13,7 @@ resource "aws_vpc_endpoint" "this" {
 
 # Default security group for the endpoint if none provided (allow HTTPS from VPC CIDR)
 resource "aws_security_group" "vpce" {
-  count = length(var.security_group_ids) == 0 ? 1 : 0
+  count = var.create_default_security_group ? 1 : 0
 
   name        = "${var.name_prefix}-vpce-${var.endpoint_suffix}-sg"
   description = "Security group for PrivateLink consumer endpoint"

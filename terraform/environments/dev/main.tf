@@ -103,9 +103,11 @@ module "privatelink_consumer" {
   vpc_id             = module.vpc_compartment[each.value.compartment].vpc_id
   subnet_ids         = length(try(module.vpc_compartment[each.value.compartment].subnet_ids_by_type["compute"], [])) > 0 ? module.vpc_compartment[each.value.compartment].subnet_ids_by_type["compute"] : module.vpc_compartment[each.value.compartment].subnet_ids_by_type["interfacing"]
   service_name       = coalesce(each.value.service_name, try(module.privatelink_producer[each.value.producer_compartment].service_name, null))
-  endpoint_suffix    = each.value.endpoint_suffix
-  security_group_ids = try(module.vpc_compartment[each.value.compartment].security_group_ids["compute"], try(module.vpc_compartment[each.value.compartment].security_group_ids["interfacing"], []))
-  tags               = {}
+  endpoint_suffix                = each.value.endpoint_suffix
+  security_group_ids             = try([module.vpc_compartment[each.value.compartment].security_group_ids["compute"]], try([module.vpc_compartment[each.value.compartment].security_group_ids["interfacing"]], []))
+  create_default_security_group  = false
+  private_dns_enabled             = false
+  tags                           = {}
 
   depends_on = [module.privatelink_producer]
 }

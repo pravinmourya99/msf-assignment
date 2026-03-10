@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 project     = "msf"
 environment = "dev"
-aws_region  = "ap-south-1"
+aws_region  = "ap-southeast-1"
 
 # -----------------------------------------------------------------------------
 # Compartments (aligned with architecture diagram)
@@ -18,12 +18,12 @@ compartments = {
     single_nat_gateway      = true
     enable_security_groups  = true
     subnets = [
-      { name = "public-1", cidr = "10.0.1.0/24", availability_zone = "ap-south-1a", type = "public" },
-      { name = "public-2", cidr = "10.0.2.0/24", availability_zone = "ap-south-1b", type = "public" },
-      { name = "firewall-1", cidr = "10.0.10.0/24", availability_zone = "ap-south-1a", type = "firewall" },
-      { name = "firewall-2", cidr = "10.0.11.0/24", availability_zone = "ap-south-1b", type = "firewall" },
-      { name = "interfacing-1", cidr = "10.0.20.0/24", availability_zone = "ap-south-1a", type = "interfacing" },
-      { name = "interfacing-2", cidr = "10.0.21.0/24", availability_zone = "ap-south-1b", type = "interfacing" },
+      { name = "public-1", cidr = "10.0.1.0/24", availability_zone = "ap-southeast-1a", type = "public" },
+      { name = "public-2", cidr = "10.0.2.0/24", availability_zone = "ap-southeast-1b", type = "public" },
+      { name = "firewall-1", cidr = "10.0.10.0/24", availability_zone = "ap-southeast-1a", type = "firewall" },
+      { name = "firewall-2", cidr = "10.0.11.0/24", availability_zone = "ap-southeast-1b", type = "firewall" },
+      { name = "interfacing-1", cidr = "10.0.20.0/24", availability_zone = "ap-southeast-1a", type = "interfacing" },
+      { name = "interfacing-2", cidr = "10.0.21.0/24", availability_zone = "ap-southeast-1b", type = "interfacing" },
     ]
   }
 
@@ -35,10 +35,10 @@ compartments = {
     single_nat_gateway      = true
     enable_security_groups  = true
     subnets = [
-      { name = "public-1", cidr = "10.1.1.0/24", availability_zone = "ap-south-1a", type = "public" },
-      { name = "public-2", cidr = "10.1.2.0/24", availability_zone = "ap-south-1b", type = "public" },
-      { name = "interfacing-1", cidr = "10.1.20.0/24", availability_zone = "ap-south-1a", type = "interfacing" },
-      { name = "interfacing-2", cidr = "10.1.21.0/24", availability_zone = "ap-south-1b", type = "interfacing" },
+      { name = "public-1", cidr = "10.1.1.0/24", availability_zone = "ap-southeast-1a", type = "public" },
+      { name = "public-2", cidr = "10.1.2.0/24", availability_zone = "ap-southeast-1b", type = "public" },
+      { name = "interfacing-1", cidr = "10.1.20.0/24", availability_zone = "ap-southeast-1a", type = "interfacing" },
+      { name = "interfacing-2", cidr = "10.1.21.0/24", availability_zone = "ap-southeast-1b", type = "interfacing" },
     ]
   }
 
@@ -50,14 +50,14 @@ compartments = {
     single_nat_gateway      = true
     enable_security_groups  = true
     subnets = [
-      { name = "web-1", cidr = "10.2.1.0/24", availability_zone = "ap-south-1a", type = "web" },
-      { name = "web-2", cidr = "10.2.2.0/24", availability_zone = "ap-south-1b", type = "web" },
-      { name = "compute-1", cidr = "10.2.10.0/24", availability_zone = "ap-south-1a", type = "compute" },
-      { name = "compute-2", cidr = "10.2.11.0/24", availability_zone = "ap-south-1b", type = "compute" },
-      { name = "data-1", cidr = "10.2.20.0/24", availability_zone = "ap-south-1a", type = "data" },
-      { name = "data-2", cidr = "10.2.21.0/24", availability_zone = "ap-south-1b", type = "data" },
-      { name = "interfacing-1", cidr = "10.2.30.0/24", availability_zone = "ap-south-1a", type = "interfacing" },
-      { name = "interfacing-2", cidr = "10.2.31.0/24", availability_zone = "ap-south-1b", type = "interfacing" },
+      { name = "web-1", cidr = "10.2.1.0/24", availability_zone = "ap-southeast-1a", type = "web" },
+      { name = "web-2", cidr = "10.2.2.0/24", availability_zone = "ap-southeast-1b", type = "web" },
+      { name = "compute-1", cidr = "10.2.10.0/24", availability_zone = "ap-southeast-1a", type = "compute" },
+      { name = "compute-2", cidr = "10.2.11.0/24", availability_zone = "ap-southeast-1b", type = "compute" },
+      { name = "data-1", cidr = "10.2.20.0/24", availability_zone = "ap-southeast-1a", type = "data" },
+      { name = "data-2", cidr = "10.2.21.0/24", availability_zone = "ap-southeast-1b", type = "data" },
+      { name = "interfacing-1", cidr = "10.2.30.0/24", availability_zone = "ap-southeast-1a", type = "interfacing" },
+      { name = "interfacing-2", cidr = "10.2.31.0/24", availability_zone = "ap-southeast-1b", type = "interfacing" },
     ]
   }
 
@@ -69,10 +69,10 @@ compartments = {
     single_nat_gateway      = true
     enable_security_groups  = true
     subnets = [
-      { name = "compute-1", cidr = "10.3.10.0/24", availability_zone = "ap-south-1a", type = "compute" },
-      { name = "compute-2", cidr = "10.3.11.0/24", availability_zone = "ap-south-1b", type = "compute" },
-      { name = "interfacing-1", cidr = "10.3.20.0/24", availability_zone = "ap-south-1a", type = "interfacing" },
-      { name = "interfacing-2", cidr = "10.3.21.0/24", availability_zone = "ap-south-1b", type = "interfacing" },
+      { name = "compute-1", cidr = "10.3.10.0/24", availability_zone = "ap-southeast-1a", type = "compute" },
+      { name = "compute-2", cidr = "10.3.11.0/24", availability_zone = "ap-southeast-1b", type = "compute" },
+      { name = "interfacing-1", cidr = "10.3.20.0/24", availability_zone = "ap-southeast-1a", type = "interfacing" },
+      { name = "interfacing-2", cidr = "10.3.21.0/24", availability_zone = "ap-southeast-1b", type = "interfacing" },
     ]
   }
 
@@ -84,10 +84,10 @@ compartments = {
     single_nat_gateway      = true
     enable_security_groups  = true
     subnets = [
-      { name = "compute-1", cidr = "10.4.10.0/24", availability_zone = "ap-south-1a", type = "compute" },
-      { name = "compute-2", cidr = "10.4.11.0/24", availability_zone = "ap-south-1b", type = "compute" },
-      { name = "interfacing-1", cidr = "10.4.20.0/24", availability_zone = "ap-south-1a", type = "interfacing" },
-      { name = "interfacing-2", cidr = "10.4.21.0/24", availability_zone = "ap-south-1b", type = "interfacing" },
+      { name = "compute-1", cidr = "10.4.10.0/24", availability_zone = "ap-southeast-1a", type = "compute" },
+      { name = "compute-2", cidr = "10.4.11.0/24", availability_zone = "ap-southeast-1b", type = "compute" },
+      { name = "interfacing-1", cidr = "10.4.20.0/24", availability_zone = "ap-southeast-1a", type = "interfacing" },
+      { name = "interfacing-2", cidr = "10.4.21.0/24", availability_zone = "ap-southeast-1b", type = "interfacing" },
     ]
   }
 }

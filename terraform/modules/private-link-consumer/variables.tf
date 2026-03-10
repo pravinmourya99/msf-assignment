@@ -24,6 +24,12 @@ variable "security_group_ids" {
   default     = []
 }
 
+variable "create_default_security_group" {
+  description = "If true, create and use a default security group for the VPC endpoint. Set to false when passing security_group_ids from another module (to avoid count depending on computed values)."
+  type        = bool
+  default     = true
+}
+
 variable "private_dns_enabled" {
   description = "Whether to associate a private hosted zone with the endpoint"
   type        = bool
