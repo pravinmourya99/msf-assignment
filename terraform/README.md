@@ -18,7 +18,8 @@ Any developer can run this in **any AWS account and region** by changing only co
 8. [Naming conventions](#8-naming-conventions)
 9. [Module reference](#9-module-reference)
 10. [Troubleshooting](#10-troubleshooting)
-
+11. [Security Flaws](#11-security-flaws)
+12. [Design Trade off](#12-design-trade-off)
 ---
 
 ## 1. Architecture overview
@@ -254,6 +255,30 @@ Root `main.tf` in `environments/dev`:
   Compartments need at least one `public` subnet and `enable_internet_gateway` / `enable_nat_gateway` set to `true` in `compartments` in your `.tfvars`.
 
 ---
+
+## 11. Security Flaws
+
+- **The "Single Point of Inspection” Bottleneck**
+
+      The firewall is the only thing standing between the "Members of the Public" and TGW.
+      If an attacker bypasses that firewall, then using TGW one can potentially attach any of the connected Workload Modules (X, Y, or Z).
+
+- **Asymmetric Routing Risk**
+
+      If a request comes in from the Internet, goes through the Firewall, through the TGW, and into Module X, but Module X tries to send the response back via a different path , the firewall will see the returning traffic as "unrecognized" and drop the connection.
+
+- **Both the Public Internet and a Government (GEN) network to the same Transit Gateway.**
+
+      Public Internet and a Government (GEN) are sharing the same "underlying router" (the TGW). 
+      If the TGW Route Tables are not strictly isolated , a breach in the Public Subnet could theoretically allow "lateral movement" into the GEN Compartment.
+
+## 12. Design Trade off
+
+- **No inspection of traffic moving between modules. Firewalls at edge only**
+ 
+- **Routing complexity.Difficult to pivot from**
+
+- **Difficult to trace internal routing so less visibility on components who are speak to one another**
 
 ## Summary
 
